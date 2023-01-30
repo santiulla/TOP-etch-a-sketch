@@ -5,6 +5,8 @@ let windowHeight = window.innerHeight;
 const totalArea = windowWidth * windowHeight;
 let usedArea = 0;
 
+// total rows
+
 // create elements
 const container = document.querySelector("#container");
 let div;
@@ -30,6 +32,8 @@ while (usedArea < totalArea) {
   usedArea += rows.offsetWidth * rows.offsetHeight;
 }
 
+// give random colors
+
 let divs = document.querySelectorAll(".divs");
 
 divs.forEach((square) => {
@@ -39,8 +43,8 @@ divs.forEach((square) => {
   square.addEventListener("mouseover", () => {
     square.style.backgroundColor = randomColor;
     square.style.boxShadow = "0 0 20px" + randomColor;
-
     square.style.zIndex = "10";
+    playSound();
   });
   square.addEventListener("mouseout", () => {
     square.style.backgroundColor = "inherit";
@@ -48,3 +52,12 @@ divs.forEach((square) => {
     square.style.zIndex = "0";
   });
 });
+
+// play sound
+
+const playSound = () => {
+  const randomKey = "key" + (Math.round(Math.random() * 14) + 1);
+  const audio = document.querySelector(`audio[id="${randomKey}"]`);
+  audio.currentTime = 0;
+  audio.play();
+};
