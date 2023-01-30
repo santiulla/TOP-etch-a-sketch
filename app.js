@@ -3,55 +3,62 @@ let windowWidth = window.innerWidth;
 let windowHeight = window.innerHeight;
 
 const totalArea = windowWidth * windowHeight;
-let usedArea = 0;
 
 // total rows
+
+let numberRows = 10;
 
 // create elements
 const container = document.querySelector("#container");
 let div;
 
-while (usedArea < totalArea) {
-  // create the first row
+const beggin = () => {
+  container.innerHTML = "";
+  let usedArea = 0;
 
-  let rows = document.createElement("div");
-  rows.style.display = "flex";
-  rows.style.width = "100vw";
+  while (usedArea < totalArea) {
+    // create the first row
 
-  // create 10 divs inside the row
-  for (let i = 0; i < 10; i++) {
-    div = document.createElement("div");
-    div.className = "divs";
+    let rows = document.createElement("div");
+    rows.style.display = "flex";
+    rows.style.width = "100vw";
 
-    rows.appendChild(div);
+    // create 10 divs inside the row
+    for (let i = 0; i < numberRows; i++) {
+      div = document.createElement("div");
+      div.className = "divs";
+
+      rows.appendChild(div);
+    }
+
+    container.appendChild(rows);
+
+    // add used area
+    usedArea += rows.offsetWidth * rows.offsetHeight;
   }
 
-  container.appendChild(rows);
-  // add used area
+  // give random colors
 
-  usedArea += rows.offsetWidth * rows.offsetHeight;
-}
+  let divs = document.querySelectorAll(".divs");
 
-// give random colors
+  divs.forEach((square) => {
+    let randomColor =
+      "#" + (((1 << 24) * Math.random()) | 0).toString(16).padStart(6, "0");
 
-let divs = document.querySelectorAll(".divs");
-
-divs.forEach((square) => {
-  let randomColor =
-    "#" + (((1 << 24) * Math.random()) | 0).toString(16).padStart(6, "0");
-
-  square.addEventListener("mouseover", () => {
-    square.style.backgroundColor = randomColor;
-    square.style.boxShadow = "0 0 20px" + randomColor;
-    square.style.zIndex = "10";
-    playSound();
+    square.addEventListener("mouseover", () => {
+      square.style.backgroundColor = randomColor;
+      square.style.boxShadow = "0 0 20px" + randomColor;
+      square.style.zIndex = "10";
+      playSound();
+    });
+    square.addEventListener("transitionend", () => {
+      square.style.backgroundColor = "inherit";
+      square.style.boxShadow = "inherit";
+      square.style.zIndex = "0";
+    });
   });
-  square.addEventListener("mouseout", () => {
-    square.style.backgroundColor = "inherit";
-    square.style.boxShadow = "inherit";
-    square.style.zIndex = "0";
-  });
-});
+};
+beggin();
 
 // play sound
 
@@ -61,3 +68,21 @@ const playSound = () => {
   audio.currentTime = 0;
   audio.play();
 };
+
+// change number of rows
+
+const lessRows = document.querySelector("#lessRows");
+lessRows.addEventListener("click", () => {
+  if (numberRows > 3) {
+    numberRows--;
+    beggin();
+  }
+});
+
+const moreRows = document.querySelector("#moreRows");
+moreRows.addEventListener("click", () => {
+  if (numberRows < 30) {
+    numberRows++;
+    beggin();
+  }
+});
