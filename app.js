@@ -7,6 +7,7 @@ let usedArea = 0;
 
 // create elements
 const container = document.querySelector("#container");
+let div;
 
 while (usedArea < totalArea) {
   // create the first row
@@ -17,13 +18,10 @@ while (usedArea < totalArea) {
 
   // create 10 divs inside the row
   for (let i = 0; i < 10; i++) {
-    let divs = document.createElement("div");
-    divs.style.height = divs.style.height;
-    divs.style.flexGrow = "1";
-    divs.style.backgroundColor = "pink";
-    divs.style.aspectRatio = "1/1";
-    divs.innerText = "test";
-    rows.appendChild(divs);
+    div = document.createElement("div");
+    div.className = "divs";
+
+    rows.appendChild(div);
   }
 
   container.appendChild(rows);
@@ -32,4 +30,21 @@ while (usedArea < totalArea) {
   usedArea += rows.offsetWidth * rows.offsetHeight;
 }
 
-console.log(rows.offsetWidth);
+let divs = document.querySelectorAll(".divs");
+
+divs.forEach((square) => {
+  let randomColor =
+    "#" + (((1 << 24) * Math.random()) | 0).toString(16).padStart(6, "0");
+
+  square.addEventListener("mouseover", () => {
+    square.style.backgroundColor = randomColor;
+    square.style.boxShadow = "0 0 20px" + randomColor;
+
+    square.style.zIndex = "10";
+  });
+  square.addEventListener("mouseout", () => {
+    square.style.backgroundColor = "inherit";
+    square.style.boxShadow = "inherit";
+    square.style.zIndex = "0";
+  });
+});
