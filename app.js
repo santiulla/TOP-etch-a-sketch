@@ -49,8 +49,11 @@ const beggin = () => {
       square.style.backgroundColor = randomColor;
       square.style.boxShadow = "0 0 20px" + randomColor;
       square.style.zIndex = "10";
-      playSound();
+
+      // toggle sound on and off
+      if (icon.classList.contains("active")) playSound();
     });
+
     square.addEventListener("transitionend", () => {
       square.style.backgroundColor = "inherit";
       square.style.boxShadow = "inherit";
@@ -85,4 +88,13 @@ moreRows.addEventListener("click", () => {
     numberRows++;
     beggin();
   }
+});
+
+const icon = document.getElementById("icon");
+
+const soundToggle = document.querySelector("#soundToggle");
+soundToggle.addEventListener("click", () => {
+  icon.classList.toggle("fa-volume-xmark");
+  icon.classList.toggle("fa-music");
+  icon.classList.toggle("active");
 });
