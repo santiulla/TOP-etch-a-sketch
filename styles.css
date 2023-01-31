@@ -9,7 +9,8 @@
   flex-grow: 1;
   background-color: rgb(255, 255, 255);
   aspect-ratio: 1/1;
-  transition: 0.3s ease-in-out;
+  transition: 1s ease-in-out;
+  border-radius: 20%;
 }
 
 .buttons-group {

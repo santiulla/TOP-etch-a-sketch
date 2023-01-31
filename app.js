@@ -66,10 +66,48 @@ beggin();
 // play sound
 
 const playSound = () => {
-  const randomKey = "key" + (Math.round(Math.random() * 14) + 1);
-  const audio = document.querySelector(`audio[id="${randomKey}"]`);
+  let audio;
+  const randomKey = Math.floor(Math.random() * 11) + 1;
+
+  const octave = Math.round(Math.random());
+
+  switch (randomKey) {
+    case 1:
+    case 2:
+      // 1st
+      audio = document.querySelector(`audio[name="f${octave}"]`);
+      break;
+    case 3:
+    case 4:
+      //3rd
+      audio = document.querySelector(`audio[name="a${octave}"]`);
+      break;
+    case 5:
+    case 6:
+      //5th
+      audio = document.querySelector(`audio[name="c${octave}"]`);
+      break;
+    case 7:
+      //2nd
+      audio = document.querySelector(`audio[name="g${octave}"]`);
+      break;
+    case 8:
+      //4th
+      audio = document.querySelector(`audio[name="bb${octave}"]`);
+      break;
+    case 9:
+      //6th
+      audio = document.querySelector(`audio[name="d${octave}"]`);
+      break;
+    case 10:
+    case 11:
+      //7th
+      audio = document.querySelector(`audio[name="e${octave}"]`);
+      break;
+  }
   audio.currentTime = 0;
   audio.play();
+  console.log(audio.attributes.name);
 };
 
 // change number of rows
@@ -89,6 +127,8 @@ moreRows.addEventListener("click", () => {
     beggin();
   }
 });
+
+/// sound toggle
 
 const icon = document.getElementById("icon");
 
